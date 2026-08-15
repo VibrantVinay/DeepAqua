@@ -1,0 +1,17 @@
+# Python environment
+venv/
+env/
+__pycache__/
+*.pyc
+
+# Model Weights (Do not push heavy files to Git!)
+models/weights/*.pt
+models/weights/*.pth
+models/weights/*.onnx
+
+# IDE files
+.vscode/
+.idea/
+
+# Logs
+*.log
