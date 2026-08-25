@@ -7,7 +7,6 @@ from utils.alert_system import AlertBroadcaster
 from utils.stream_handler import BufferlessVideoCapture
 from utils.knowledge_engine import EdgeKnowledgeEngine
 
-# Configure logging
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 
 def main():
