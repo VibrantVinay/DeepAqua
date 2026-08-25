@@ -18,7 +18,7 @@ class ThreatDetector:
         results = self.model(frame, verbose=False)
         
         detections = []
-        annotated_frame = results[0].plot() # YOLO's built-in bounding box plotting
+        annotated_frame = results[0].plot() # YOLO's built-in bounding box lotting
         
         # Parse results for the alerting system
         for box in results[0].boxes:
