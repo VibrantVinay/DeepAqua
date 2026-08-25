@@ -7,7 +7,7 @@ import logging
 
 # ==========================================
 # 1. FUnIE-GAN Generator Architecture
-# ==========================================
+# =========================================
 class UNetDown(nn.Module):
     """Downsampling block for the Generator"""
     def __init__(self, in_size, out_size, normalize=True, dropout=0.0):
