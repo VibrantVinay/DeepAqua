@@ -17,6 +17,7 @@ class BufferlessVideoCapture:
             
         self.lock = threading.Lock()
         self.running = True
+
         
         # Read the first frame to initialize
         self.ret, self.frame = self.cap.read()
