@@ -8,7 +8,7 @@ from datetime import datetime
 class AlertBroadcaster:
     def __init__(self, endpoint_url: str):
         self.endpoint_url = endpoint_url
-        # Cooldown mechanism to prevent network flooding from the same object
+        # Cooldown mechanism to prevent network flooding from the same obje
         self.last_alert_time = None
         self.cooldown_seconds = 5
 
