@@ -310,7 +310,7 @@ def inject_css(theme, mode):
     .stButton>button:focus-visible,.stDownloadButton>button:focus-visible{box-shadow:0 0 0 3px var(--ring);outline:none;}
     .stButton>button[kind="primary"],.stDownloadButton>button[kind="primary"]{background:var(--primary);color:#fff;border-color:var(--primary);}
     [data-testid="stFileUploaderDropzone"]{background:color-mix(in srgb,var(--card) 92%,var(--primary));border:1px dashed color-mix(in srgb,var(--metal) 55%,var(--border));border-radius:var(--r);}
-    [data-testid="stFileUploaderDropzone"]:hover{border-color:var(--primary);}
+    [data-testid="stFileUploaderDropzone"]:hover{border-color:var(--primary);}[data-testid="stFileUploaderDropzone"] button,[data-testid="stFileUploaderDropzone"] button *{background:var(--muted)!important;color:var(--fg)!important;border:1px solid var(--border)!important;border-radius:8px!important;font-family:Manrope,sans-serif!important;font-weight:700!important;opacity:1!important;}[data-testid="stFileUploaderDropzone"] button:hover,[data-testid="stFileUploaderDropzone"] button:hover *{background:var(--primary)!important;color:#fff!important;border-color:var(--primary)!important;}
     .stTextInput input,.stNumberInput input,[data-baseweb="select"]>div{background:var(--card)!important;border-color:var(--border)!important;color:var(--fg)!important;border-radius:8px!important;}
     .stSlider [role="slider"]{background:var(--primary)!important;box-shadow:0 0 0 4px var(--ring)!important;}
     [data-testid="stExpander"]{border:1px solid var(--border);border-radius:var(--r);background:var(--card);}
