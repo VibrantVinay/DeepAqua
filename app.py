@@ -34,15 +34,15 @@ ALL_LABELS = ["Submarine", "Fish", "Ship", "AUV", "ROV", "Diver", "UUV", "Wreck"
               "Naval Mine", "Underwater Ordnance", "Suspicious Object"]
 
 THEMES = {  # name: (primary, text-on-primary)
-    "Ocean": ("#14b8a6", "#042f2e"),
+    "Ocean": ("#315cbd", "#ffffff"),
     "Violet": ("#8b5cf6", "#ffffff"),
     "Rose": ("#f43f5e", "#ffffff"),
     "Amber": ("#f59e0b", "#1c1003"),
     "Sky": ("#0ea5e9", "#03131f"),
 }
 MODES = {
-    "Cream": dict(bg="#fbf7ef", fg="#29251f", card="#fffdf8", muted="#f2ece1", mfg="#766d61", border="#e6ddcf"),
-    "Dark": dict(bg="#101313", fg="#f5f2eb", card="#171b1a", muted="#202725", mfg="#a9b4ad", border="#303936"),
+    "Cream": dict(bg="#f4f0e8", fg="#111a27", card="#fcfaf5", muted="#e9e4da", mfg="#68717b", border="#d9d3c8"),
+    "Dark": dict(bg="#08111d", fg="#f4f0e8", card="#0d1b2a", muted="#14263a", mfg="#a9b4bf", border="#26394e"),
 }
 
 st.set_page_config(page_title="DeepAqua Studio", page_icon="🌊", layout="wide", initial_sidebar_state="expanded")
@@ -268,55 +268,55 @@ def inject_css(theme, mode):
     m = MODES[mode]
     css = """
     <style>
-    @import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Manrope:wght@400;500;600;700&display=swap');
     :root{--bg:%bg%;--fg:%fg%;--card:%card%;--muted:%muted%;--mfg:%mfg%;--border:%border%;--primary:%p%;--pfg:%pfg%;
-          --danger:#ef4444;--ok:#22c55e;--r:10px;--ring:%p%66;}
-    html,body,.stApp{font-family:'Inter',sans-serif!important;background:var(--bg);color:var(--fg);}
-    .stApp p,.stApp label,.stApp li,.stApp span,.stApp h1,.stApp h2,.stApp h3,.stApp h4,.stApp h5,.stMarkdown{color:var(--fg);}
-    .stApp{background-image:radial-gradient(75% 45% at 95% 0%,rgba(232,166,126,.12),transparent 68%),radial-gradient(60% 42% at 0% 100%,rgba(84,155,143,.09),transparent 70%);}
+          --danger:#b6453c;--ok:#507b68;--metal:#b59b6b;--r:12px;--ring:%p%55;}
+    html,body,.stApp{font-family:'Manrope',sans-serif!important;background:var(--bg);color:var(--fg);}
+    .stApp p,.stApp label,.stApp li,.stApp h1,.stApp h2,.stApp h3,.stApp h4,.stApp h5{color:var(--fg);}
+    .stApp{background-image:radial-gradient(65% 35% at 100% 0%,color-mix(in srgb,var(--primary) 8%,transparent),transparent 72%),linear-gradient(145deg,var(--bg),color-mix(in srgb,var(--bg) 90%,var(--primary)));background-attachment:fixed;}
     header[data-testid="stHeader"]{background:transparent;}
-    .block-container{padding-top:1.4rem;max-width:1400px;}
-    section[data-testid="stSidebar"]{background:var(--card);border-right:1px solid var(--border);}
+    .block-container{padding-top:1.2rem;max-width:1440px;}
+    section[data-testid="stSidebar"]{background:color-mix(in srgb,var(--card) 94%,var(--primary));border-right:1px solid var(--border);}
     hr{border-color:var(--border)!important;}
     /* cards */
-    .card{background:var(--card);border:1px solid var(--border);border-radius:var(--r);padding:16px 18px;margin-bottom:12px;box-shadow:0 1px 2px rgba(0,0,0,.12);}
-    .card h4{margin:0 0 2px;font-size:.95rem;font-weight:600;} .card .desc{color:var(--mfg);font-size:.82rem;margin:0;}
-    .kpi{background:var(--card);border:1px solid var(--border);border-radius:var(--r);padding:14px 16px;}
-    .kpi .k{color:var(--mfg);font-size:.78rem;font-weight:500;} .kpi .v{font-size:1.65rem;font-weight:700;letter-spacing:-.02em;line-height:1.2;}
+    .card{background:color-mix(in srgb,var(--card) 92%,var(--primary));border:1px solid var(--border);border-radius:var(--r);padding:20px 22px;margin-bottom:14px;box-shadow:0 12px 34px rgba(8,17,29,.055);}
+    .card h4{margin:0 0 4px;font-family:'Cormorant Garamond',serif;font-size:1.35rem;font-weight:600;letter-spacing:.01em;} .card .desc{color:var(--mfg);font-size:.84rem;margin:0;line-height:1.65;}
+    .kpi{background:color-mix(in srgb,var(--card) 92%,var(--primary));border:1px solid var(--border);border-radius:var(--r);padding:16px 18px;box-shadow:0 8px 24px rgba(8,17,29,.04);}
+    .kpi .k{color:var(--mfg);font-size:.72rem;font-weight:700;text-transform:uppercase;letter-spacing:.11em;} .kpi .v{font-family:'Cormorant Garamond',serif;font-size:2rem;font-weight:600;letter-spacing:-.02em;line-height:1.15;}
     .kpi .s{color:var(--mfg);font-size:.74rem;}
     .kpi.danger{border-color:var(--danger);} .kpi.danger .v{color:var(--danger);}
     /* header */
-    .appbar{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-bottom:18px;}
-    .brand{display:flex;align-items:center;gap:12px;} .logo{width:36px;height:36px;border-radius:9px;background:var(--primary);display:flex;align-items:center;justify-content:center;}
-    .brand .n{font-family:'Fraunces',serif;font-weight:600;font-size:1.25rem;letter-spacing:-.02em;} .brand .t{color:var(--mfg);font-size:.78rem;}
-    .appbar>div:first-child>div:first-child{font-family:'Fraunces',serif;font-weight:600;}
+    .appbar{display:flex;align-items:flex-end;justify-content:space-between;gap:24px;flex-wrap:wrap;margin:8px 0 24px;padding:26px 0 22px;border-top:1px solid var(--border);border-bottom:1px solid var(--border);}.hero-copy{max-width:760px}.hero-kicker{display:flex;align-items:center;gap:10px;color:var(--metal);font-size:.68rem;font-weight:700;letter-spacing:.22em;text-transform:uppercase;margin-bottom:10px}.hero-kicker:before{content:"";display:block;width:28px;height:1px;background:var(--metal)}.hero-title{font-family:"Cormorant Garamond",serif;font-size:clamp(2.6rem,5vw,4.7rem);font-weight:500;letter-spacing:-.035em;line-height:.92}.hero-title em{color:var(--primary);font-style:normal}.hero-subtitle{max-width:700px;color:var(--mfg)!important;font-size:.88rem;line-height:1.7;margin-top:14px}.hero-status{display:flex;align-items:center;gap:7px;flex-wrap:wrap;justify-content:flex-end;max-width:430px}
+    .brand{display:flex;align-items:center;gap:12px;padding-bottom:7px;} .logo{width:38px;height:38px;border-radius:50%;border:1px solid var(--metal);background:transparent;display:flex;align-items:center;justify-content:center;}
+    .brand .n{font-family:'Cormorant Garamond',serif;font-weight:600;font-size:1.55rem;letter-spacing:.015em;} .brand .t{color:var(--mfg);font-size:.66rem;text-transform:uppercase;letter-spacing:.15em;}
+    
     /* badges */
-    .badge{display:inline-flex;align-items:center;gap:6px;border-radius:999px;padding:2px 10px;font-size:.72rem;font-weight:600;border:1px solid var(--border);background:var(--muted);color:var(--fg);margin-right:6px;}
-    .badge.primary{background:var(--primary);color:var(--pfg);border-color:transparent;}
-    .badge.danger{background:rgba(239,68,68,.15);color:#f87171;border-color:rgba(239,68,68,.4);}
-    .badge.ok{background:rgba(34,197,94,.14);color:#4ade80;border-color:rgba(34,197,94,.4);}
+    .badge{display:inline-flex;align-items:center;gap:6px;border-radius:999px;padding:5px 10px;font-size:.67rem;font-weight:700;letter-spacing:.035em;border:1px solid var(--border);background:var(--muted);color:var(--fg);margin:3px;}
+    .badge.primary{background:transparent;color:var(--primary);border-color:color-mix(in srgb,var(--primary) 45%,var(--border));}
+    .badge.danger{background:rgba(182,69,60,.1);color:var(--danger);border-color:rgba(182,69,60,.35);}
+    .badge.ok{background:rgba(80,123,104,.1);color:var(--ok);border-color:rgba(80,123,104,.35);}
     .dot{width:7px;height:7px;border-radius:50%;background:currentColor;display:inline-block;}
-    .det{display:flex;justify-content:space-between;align-items:center;gap:10px;background:var(--card);border:1px solid var(--border);border-left:3px solid var(--primary);border-radius:var(--r);padding:10px 14px;margin-bottom:8px;}
+    .det{display:flex;justify-content:space-between;align-items:center;gap:10px;background:var(--card);border:1px solid var(--border);border-left:2px solid var(--primary);border-radius:8px;padding:12px 14px;margin-bottom:8px;}
     .det.crit{border-left-color:var(--danger);} .det .l{font-weight:600;font-size:.9rem;} .det .c{color:var(--mfg);font-size:.78rem;}
     .bar{height:5px;background:var(--muted);border-radius:99px;overflow:hidden;width:90px;} .bar i{display:block;height:100%;background:var(--primary);}
     .det.crit .bar i{background:var(--danger);}
     /* streamlit widgets -> shadcn */
-    .stTabs [data-baseweb="tab-list"]{gap:2px;background:var(--muted);padding:4px;border-radius:var(--r);width:fit-content;border:none;}
-    .stTabs [data-baseweb="tab"]{height:34px;padding:0 16px;border-radius:7px;color:var(--mfg);font-weight:500;font-size:.85rem;background:transparent;}
-    .stTabs [aria-selected="true"]{background:var(--bg)!important;color:var(--fg)!important;box-shadow:0 1px 3px rgba(0,0,0,.25);}
+    .stTabs [data-baseweb="tab-list"]{gap:8px;background:transparent;padding:0;border-bottom:1px solid var(--border);width:100%;}
+    .stTabs [data-baseweb="tab"]{height:42px;padding:0 14px;border-radius:0;color:var(--mfg);font-weight:600;font-size:.77rem;letter-spacing:.045em;background:transparent;}
+    .stTabs [aria-selected="true"]{background:transparent!important;color:var(--primary)!important;box-shadow:inset 0 -2px 0 var(--primary)!important;}
     .stTabs [data-baseweb="tab-highlight"],.stTabs [data-baseweb="tab-border"]{display:none;}
-    .stButton>button,.stDownloadButton>button{background:var(--muted);color:var(--fg);border:1px solid var(--border);border-radius:8px;font-weight:500;font-size:.85rem;padding:6px 14px;transition:.15s;}
+    .stButton>button,.stDownloadButton>button{background:transparent;color:var(--fg);border:1px solid var(--border);border-radius:5px;font-weight:700;font-size:.76rem;letter-spacing:.04em;padding:8px 15px;transition:.18s;}
     .stButton>button:hover,.stDownloadButton>button:hover{border-color:var(--primary);color:var(--fg);background:var(--muted);}
     .stButton>button:focus-visible,.stDownloadButton>button:focus-visible{box-shadow:0 0 0 3px var(--ring);outline:none;}
-    .stButton>button[kind="primary"],.stDownloadButton>button[kind="primary"]{background:var(--primary);color:var(--pfg);border-color:transparent;}
-    [data-testid="stFileUploaderDropzone"]{background:var(--card);border:1.5px dashed var(--border);border-radius:var(--r);}
+    .stButton>button[kind="primary"],.stDownloadButton>button[kind="primary"]{background:var(--primary);color:#fff;border-color:var(--primary);}
+    [data-testid="stFileUploaderDropzone"]{background:color-mix(in srgb,var(--card) 92%,var(--primary));border:1px dashed color-mix(in srgb,var(--metal) 55%,var(--border));border-radius:var(--r);}
     [data-testid="stFileUploaderDropzone"]:hover{border-color:var(--primary);}
     .stTextInput input,.stNumberInput input,[data-baseweb="select"]>div{background:var(--card)!important;border-color:var(--border)!important;color:var(--fg)!important;border-radius:8px!important;}
     .stSlider [role="slider"]{background:var(--primary)!important;box-shadow:0 0 0 4px var(--ring)!important;}
     [data-testid="stExpander"]{border:1px solid var(--border);border-radius:var(--r);background:var(--card);}
     [data-testid="stDataFrame"]{border:1px solid var(--border);border-radius:var(--r);overflow:hidden;}
-    [data-testid="stImage"] img{border-radius:var(--r);border:1px solid var(--border);}
-    .side-h{color:var(--mfg);font-size:.75rem;font-weight:600;margin:14px 0 6px;}
+    [data-testid="stImage"] img{border-radius:var(--r);border:1px solid var(--border);box-shadow:0 14px 38px rgba(8,17,29,.08);}
+    .side-h{color:var(--metal);font-size:.67rem;font-weight:700;letter-spacing:.15em;text-transform:uppercase;margin:18px 0 7px;}.stSlider [data-baseweb="slider"]>div:first-child{height:3px}@media(max-width:720px){.appbar{align-items:flex-start;padding:20px 0}.hero-status{justify-content:flex-start}.hero-title{font-size:3rem}.block-container{padding-left:1rem;padding-right:1rem}}
     </style>"""
     for k, v in {"%bg%": m["bg"], "%fg%": m["fg"], "%card%": m["card"], "%muted%": m["muted"], "%mfg%": m["mfg"],
                  "%border%": m["border"], "%p%": p, "%pfg%": pfg}.items():
@@ -396,9 +396,9 @@ vlm_badge = '<span class="badge ok"><span class="dot"></span>VLM online</span>' 
             '<span class="badge danger"><span class="dot"></span>VLM offline · add API key</span>'
 st.markdown(f"""
 <div class="appbar">
-  <div><div style="font-size:1.6rem;font-weight:700;letter-spacing:-.025em">Subsea Vision Studio</div>
-  <div style="color:var(--mfg);font-size:.9rem">YOLO detects trained underwater classes; VLM suggestions add context. Review uncertain contacts before acting.</div></div>
-  <div><span class="badge primary">{weights_name}</span>{vlm_badge}<span class="badge">conf ≥ {conf_thresh:.2f}</span></div>
+  <div class="hero-copy"><div class="hero-kicker">DeepAqua · Subsea intelligence</div>
+  <div class="hero-title">The subsea frontier,<br><em>understood.</em></div><div class="hero-subtitle">A precision workspace for marine reconnaissance. YOLO identifies trained underwater classes; VLM analysis adds context. Review uncertain contacts before acting.</div></div>
+  <div class="hero-status"><span class="badge primary">{weights_name}</span>{vlm_badge}<span class="badge">Confidence ≥ {conf_thresh:.2f}</span></div>
 </div>""", unsafe_allow_html=True)
 
 tab_image, tab_video, tab_batch, tab_session = st.tabs(["Image recon", "Uploaded video", "Batch recon", "Session & report"])
