@@ -733,7 +733,7 @@ with tab_session:
                   f"- Mission: {st.session_state.mission_name}", f"- Operator: {st.session_state.operator_name or 'Not set'}",
                   f"- Mission profile: {mission_profile}", f"- Model: {weights_name}", f"- Confidence threshold: {conf_thresh:.2f}",
                   f"- VLM verification: {'on' if use_groq_vision and GROQ_AVAILABLE else 'off'}", "",
-                  "## Scans", "", hist.to_markdown(index=False) if hasattr(hist, "to_markdown") else hist.to_string(index=False)]
+                  "## Scans", "", hist.to_string(index=False)]
         if "summary" in st.session_state:
             report += ["", "## Latest scene briefing", "", st.session_state.summary]
         r1, r2, _ = st.columns([1, 1, 3])
