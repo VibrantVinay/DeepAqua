@@ -1,48 +1,31 @@
-import requests
-import cv2
-import base64
+import time
 import json
-import logging
-from datetime import datetime
+import cv2
+from pathlib import Path
 
-class AlertBroadcaster:
-    def __init__(self, endpoint_url: str):
-        self.endpoint_url = endpoint_url
-        # Cooldown mechanism to prevent network flooding from the same object
-        self.last_alert_time = None
-        self.cooldown_seconds = 5
 
-    def trigger_alert(self, threat_type: str, confidence: float, frame_data):
-        """Packages visual evidence and telemetry, then transmits it to the monitoring station."""
-        now = datetime.now()
-        
-        # Check cooldown to prevent spamming APIs
-        if self.last_alert_time and (now - self.last_alert_time).total_seconds() < self.cooldown_seconds:
-            return
-            
-        self.last_alert_time = now
-        
-        # Encode frame to base64 for JSON transmission
-        _, buffer = cv2.imencode('.jpg', frame_data)
-        encoded_image = base64.b64encode(buffer).decode('utf-8')
+class AlertSystem:
+    def __init__(self, alert_dir="runs/alerts"):
+        self.alert_dir = Path(alert_dir)
+        self.alert_dir.mkdir(parents=True, exist_ok=True)
 
-        payload = {
-            "timestamp": now.isoformat(),
-            "threat_type": threat_type,
-            "confidence_score": round(confidence, 3),
-            "telemetry": {
-                "node_id": "EDGE_NODE_01",
-                "status": "CRITICAL"
-            },
-            "image_evidence": encoded_image
-        }
-
-        try:
-            # Fire-and-forget network request
-            response = requests.post(self.endpoint_url, json=payload, timeout=2)
-            if response.status_code == 200:
-                logging.info(f"Alert broadcast successful: {threat_type} detected.")
-            else:
-                logging.warning(f"Alert rejected by server. Status code: {response.status_code}")
-        except requests.exceptions.RequestException as e:
-            logging.error(f"Network failure during alert broadcast: {e}")
+    def trigger(self, threats, frame):
+        for threat in threats:
+            timestamp = time.strftime("%Y%m%d_%H%M%S") + f"_{time.time_ns()}"
+            alert_id = f"ALERT_{threat['severity']}_{timestamp}"
+            print(
+                f"\n[!] DEFENSE ALERT: {threat['label']} | "
+                f"Severity: {threat['severity']} | Confidence: {threat['confidence']}"
+            )
+            evidence_path = self.alert_dir / f"{alert_id}.jpg"
+            cv2.imwrite(str(evidence_path), frame)
+            log_entry = {
+                "alert_id": alert_id,
+                "threat": threat["label"],
+                "severity": threat["severity"],
+                "confidence": threat["confidence"],
+                "bounding_box": threat["bbox"],
+                "evidence_path": str(evidence_path),
+            }
+            with open(self.alert_dir / "alert_log.jsonl", "a", encoding="utf-8") as f:
+                f.write(json.dumps(log_entry) + "\n")

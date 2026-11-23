@@ -122,3 +122,10 @@ alerter = AlertBroadcaster(endpoint_url="[http://192.168.1.100:8000/api/v1/alert
   pages={1769--1776},
   year={2020}
 }
+
+
+## Application UI and deployment
+
+Run the dashboard with `streamlit run app.py`. It accepts uploaded images and video clips; live webcam capture is disabled. The VLM can add suggestions to trained underwater classes, but cannot guarantee detection of every object or threat. Treat uncertain results as leads for operator review.
+
+Set `GROQ_API_KEY` in Streamlit Community Cloud secrets for VLM verification and scene briefings. Do not commit API keys.
